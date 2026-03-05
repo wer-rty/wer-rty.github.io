@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffcfff;
+  background: #0bff78;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2578,4 +2578,99 @@ mjx-container + br {
   .pagination {
     margin: 8px 0 0;
   }
+}
+body {
+  background: url("/images/background.jpg") !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-position: center !important;
+}
+.theme-next {
+  background: transparent !important;
+}
+/* 强制首页缩略图左浮动并设置合适宽度 */
+.post-thumb {
+  float: left !important;
+  width: 250px !important; /* 你可以根据需要调整宽度 */
+  margin-right: 20px !important;
+  margin-bottom: 10px !important;
+}
+.post-thumb img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 4px !important;
+  display: block !important; /* 去除图片下方间隙 */
+}
+/* 确保文章标题区域不与图片重叠 */
+.post-header {
+  overflow: hidden !important; /* 触发 BFC，防止文字环绕 */
+}
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .post-thumb {
+    float: none !important;
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-bottom: 15px !important;
+  }
+}
+/* 1. 让文章卡片更有质感 */
+.post-block {
+  background: rgba(255,255,255,0.9); /* 轻微半透明白色背景 */
+  border-radius: 12px; /* 圆角 */
+  padding: 25px; /* 内边距 */
+  margin-bottom: 30px; /* 底部间距 */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* 柔和阴影 */
+  transition: box-shadow 0.3s ease; /* 悬停过渡效果 */
+}
+.post-block:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+/* 2. 调整缩略图大小和样式（你可以在此修改宽度） */
+.post-thumb {
+  width: 220px !important; /* 稍大一点，可自行调整 */
+  margin-right: 25px !important;
+}
+.post-thumb img {
+  border-radius: 8px !important; /* 稍微圆角 */
+  object-fit: cover; /* 确保图片填充不拉伸变形 */
+}
+/* 3. 优化标题字体 */
+.post-header h2 {
+  font-size: 1.8em;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.post-header h2 a {
+  color: #333;
+  text-decoration: none;
+}
+.post-header h2 a:hover {
+  color: #1890ff;
+}
+/* 4. 摘要样式 */
+.post-excerpt {
+  color: #666;
+  line-height: 1.6;
+  margin: 15px 0;
+}
+/* 5. 阅读全文按钮 */
+.post-button .btn {
+  background: transparent;
+  border: 1px solid #1890ff;
+  color: #1890ff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+.post-button .btn:hover {
+  background: #1890ff;
+  color: #fff;
+}
+/* 6. 文章元信息（日期、分类等） */
+.post-meta {
+  color: #999;
+  font-size: 0.9em;
+  margin-bottom: 10px;
 }
