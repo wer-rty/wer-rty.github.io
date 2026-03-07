@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="这辈子没法做太多的事情，所以每一件都要做到精彩绝伦！——史蒂夫.乔布斯">
@@ -76,7 +76,8 @@
   </style>
 </noscript>
 
-</head>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+ </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -152,10 +153,6 @@
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
     <main class="main">
@@ -200,10 +197,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2026-03-05 18:29:34 / 修改时间：21:53:29" itemprop="dateCreated datePublished" datetime="2026-03-05T18:29:34+08:00">2026-03-05</time>
+              <time title="创建时间：2026-03-05 18:29:34" itemprop="dateCreated datePublished" datetime="2026-03-05T18:29:34+08:00">2026-03-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-03-07 15:06:52" itemprop="dateModified" datetime="2026-03-07T15:06:52+08:00">2026-03-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -214,7 +217,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -225,7 +242,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本篇主要详细介绍一下所有位运算符号以及常见的用法</p>
+          <p>​ 本篇主要详细介绍一下所有位运算符号以及常见的用法</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/03/05/symbol/#more" rel="contents">
@@ -291,7 +308,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-03-05 21:53:42" itemprop="dateModified" datetime="2026-03-05T21:53:42+08:00">2026-03-05</time>
+                <time title="修改时间：2026-03-07 14:59:49" itemprop="dateModified" datetime="2026-03-07T14:59:49+08:00">2026-03-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -303,7 +320,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>483</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -314,7 +345,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>这篇文章主要讲述算法方面快速幂相关的知识点</p>
+          <p>​ 这篇文章主要讲述算法方面快速幂相关的知识点</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/03/04/ksm/#more" rel="contents">
@@ -345,6 +376,10 @@
 
       
     
+      <div class="post-thumb" style="float: left; width: 150px; margin-right: 20px;">
+        <img src="/images/dp.jpg" alt="动态规划" style="width: 100%; height: auto; border-radius: 4px;">
+      </div>
+    
     
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -368,10 +403,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2026-03-03 23:04:38 / 修改时间：23:12:41" itemprop="dateCreated datePublished" datetime="2026-03-03T23:04:38+08:00">2026-03-03</time>
+              <time title="创建时间：2026-03-03 23:04:38" itemprop="dateCreated datePublished" datetime="2026-03-03T23:04:38+08:00">2026-03-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-03-07 19:08:10" itemprop="dateModified" datetime="2026-03-07T19:08:10+08:00">2026-03-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -382,7 +423,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>29</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -393,9 +448,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <hr />
-<p>该文章主要是讲述动态规划的一系列模板题和学习方法</p>
-<hr />
+          <p>该文章主要是讲述动态规划的一系列模板题和学习方法</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/03/03/dp/#more" rel="contents">
@@ -425,6 +478,10 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/02/niuke/">
 
       
+    
+      <div class="post-thumb" style="float: left; width: 150px; margin-right: 20px;">
+        <img src="/images/niuke.jpg" alt="牛客竞赛" style="width: 100%; height: auto; border-radius: 4px;">
+      </div>
     
     
 
@@ -457,7 +514,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-03-05 17:57:58" itemprop="dateModified" datetime="2026-03-05T17:57:58+08:00">2026-03-05</time>
+                <time title="修改时间：2026-03-07 19:08:42" itemprop="dateModified" datetime="2026-03-07T19:08:42+08:00">2026-03-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -469,7 +526,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -480,9 +551,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <hr />
-<p>终于，我开始了自己的博客之旅！这是我的第一篇文章，想在这里记录下此刻的心情和对未来的期待。</p>
-<hr />
+          <p>终于，我开始了自己的博客之旅！这是我的第一篇文章，想在这里记录下此刻的心情和对未来的期待。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/03/02/niuke/#more" rel="contents">
@@ -586,7 +655,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -595,6 +664,10 @@
 
 
       </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
 
     </div>
   </aside>
@@ -618,9 +691,17 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">zsty</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15 分钟</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
 
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -686,8 +767,6 @@ $(document).ready(function() {
   </div>
 
   
-  
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
@@ -780,5 +859,40 @@ $(document).ready(function() {
 
   
 
-</body>
+
+ <!-- 添加烟花特效 -->
+  
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+ 
+<!-- 花瓣飘落特效 -->
+<link rel="stylesheet" href="/js/sakura.min.css">
+<script src="/js/sakura.min.js"></script>
+<script>
+  // 确保 DOM 加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    var sakura = new Sakura('body', {
+      fallSpeed: 1.5,           // 下落速度（数值越大越慢）
+      maxSize: 18,               // 花瓣最大尺寸
+      minSize: 10,               // 花瓣最小尺寸
+      delay: 200,                // 生成花瓣的间隔时间（毫秒）
+      colors: [
+        {
+          gradientColorStart: 'rgba(255, 183, 197, 0.9)',  // 淡粉色
+          gradientColorEnd: 'rgba(255, 197, 208, 0.9)',
+          gradientColorDegree: 120
+        },
+        {
+          gradientColorStart: 'rgba(212, 152, 163, 0.9)',  // 粉紫色
+          gradientColorEnd: 'rgba(242, 185, 196, 0.9)',
+          gradientColorDegree: 120
+        }
+      ]
+    });
+  });
+</script>
+ 
+<script src="/hexo-helper-live2d/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"hexo-helper-live2d/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/hexo-helper-live2d/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5}});</script></body>
 </html>

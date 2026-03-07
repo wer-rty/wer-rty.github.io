@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -77,7 +77,8 @@
   </style>
 </noscript>
 
-</head>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+ </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -153,10 +154,6 @@
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
     <main class="main">
@@ -191,10 +188,10 @@
       <div class="post-body">
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-              目前共计 6 个标签
+              目前共计 7 个标签
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 12px; color: #ccc">位运算符</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" style="font-size: 12px; color: #ccc">快速幂</a> <a href="/tags/%E7%89%9B%E5%AE%A2/" style="font-size: 12px; color: #ccc">牛客</a> <a href="/tags/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%82%B9/" style="font-size: 12px; color: #ccc">算法知识点</a> <a href="/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" style="font-size: 30px; color: #111">算法竞赛</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 21px; color: #6f6f6f">随笔</a>
+              <a href="/tags/dp/" style="font-size: 12px; color: #ccc">dp</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/" style="font-size: 12px; color: #ccc">位运算符</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" style="font-size: 12px; color: #ccc">快速幂</a> <a href="/tags/%E7%89%9B%E5%AE%A2/" style="font-size: 12px; color: #ccc">牛客</a> <a href="/tags/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%82%B9/" style="font-size: 12px; color: #ccc">算法知识点</a> <a href="/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" style="font-size: 30px; color: #111">算法竞赛</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 21px; color: #6f6f6f">随笔</a>
             </div>
           </div>
         
@@ -286,7 +283,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -295,6 +292,10 @@
 
 
       </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
 
     </div>
   </aside>
@@ -318,9 +319,17 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">zsty</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15 分钟</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
 
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -386,8 +395,6 @@ $(document).ready(function() {
   </div>
 
   
-  
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
@@ -480,5 +487,40 @@ $(document).ready(function() {
 
   
 
-</body>
+
+ <!-- 添加烟花特效 -->
+  
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+ 
+<!-- 花瓣飘落特效 -->
+<link rel="stylesheet" href="/js/sakura.min.css">
+<script src="/js/sakura.min.js"></script>
+<script>
+  // 确保 DOM 加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    var sakura = new Sakura('body', {
+      fallSpeed: 1.5,           // 下落速度（数值越大越慢）
+      maxSize: 18,               // 花瓣最大尺寸
+      minSize: 10,               // 花瓣最小尺寸
+      delay: 200,                // 生成花瓣的间隔时间（毫秒）
+      colors: [
+        {
+          gradientColorStart: 'rgba(255, 183, 197, 0.9)',  // 淡粉色
+          gradientColorEnd: 'rgba(255, 197, 208, 0.9)',
+          gradientColorDegree: 120
+        },
+        {
+          gradientColorStart: 'rgba(212, 152, 163, 0.9)',  // 粉紫色
+          gradientColorEnd: 'rgba(242, 185, 196, 0.9)',
+          gradientColorDegree: 120
+        }
+      ]
+    });
+  });
+</script>
+ 
+<script src="/hexo-helper-live2d/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"hexo-helper-live2d/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/hexo-helper-live2d/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5}});</script></body>
 </html>
