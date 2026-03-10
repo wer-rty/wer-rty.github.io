@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本篇主要介绍一下前缀和&amp;差分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前缀和&amp;差分">
+<meta property="og:url" content="http://example.com/2026/03/09/pre/index.html">
+<meta property="og:site_name" content="清风新雨">
+<meta property="og:description" content="本篇主要介绍一下前缀和&amp;差分">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-09T05:35:44.000Z">
+<meta property="article:modified_time" content="2026-03-10T10:25:47.712Z">
+<meta property="article:author" content="zsty">
+<meta property="article:tag" content="前缀和&amp;差分">
+<meta property="article:tag" content="算法知识点">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/03/09/pre/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>前缀和&差分 | 清风新雨</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+ </head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">清风新雨</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="fa fa-download fa-fw"></i>资源</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN" style="overflow: hidden;">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/09/pre/">
+
+      
+    
+    
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avater.png">
+      <meta itemprop="name" content="zsty">
+      <meta itemprop="description" content="这辈子没法做太多的事情，所以每一件都要做到精彩绝伦！——史蒂夫.乔布斯">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="清风新雨">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前缀和&差分
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-03-09 13:35:44" itemprop="dateCreated datePublished" datetime="2026-03-09T13:35:44+08:00">2026-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-03-10 18:25:47" itemprop="dateModified" datetime="2026-03-10T18:25:47+08:00">2026-03-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">算法知识点总结</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇主要介绍一下前缀和&amp;差分</p>
+<span id="more"></span>
+<h3 id="前缀和差分">前缀和&amp;差分</h3>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/prefix-sum/">前缀和
+&amp; 差分 - OI Wiki</a> <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73633807/article/details/141756599">一篇带你速通差分算法（C/C++）-CSDN博客</a></p>
+<h4 id="前缀和">前缀和</h4>
+<h5 id="i.普通前缀和">I.普通前缀和</h5>
+<p>介绍：前缀和可以简单理解为「数列的前 𝑛<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="n" /> 项的和」，是一种重要的预处理方式．主要用于快速求区间和</p>
+<p>对于长度为 𝑛<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="n" /> 的序列 {𝑎𝑖}<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="{a_i}" />，如果要多次查询区间 [𝑙,𝑟]<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="[l,r]" /> 中序列数字的和，就可以考虑使用前缀和．序列的前缀和就是
+<span class="math display">$$
+S_i=\sum_{j=1}^{i}a_j
+$$</span> 它可以通过递推关系式 <span
+class="math display"><em>S</em><sub>0</sub> = 0, <em>S</em><sub><em>i</em></sub> = <em>S</em><sub><em>i</em> − 1</sub> + <em>a</em><sub><em>i</em></sub></span>
+逐项计算得到．要询问区间 [𝑙,𝑟]<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="[l,r]" /> 内的序列的和，只需要计算差值 <span
+class="math display"><em>S</em>([<em>l</em>, <em>r</em>]) = <em>S</em><sub><em>r</em></sub> − <em>S</em><sub><em>l</em> − 1</sub></span>
+就这样，通过 𝑂(𝑛)<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="O(n)" /> 时间预处理，能够将单次查询区间和的复杂度降低到 𝑂(1)<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="O(1)" />．</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;<span class="built_in">a</span>(n<span class="number">+1</span>);</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;<span class="built_in">pre</span>(n);</span><br><span class="line">    pre[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pre[i]=pre[i<span class="number">-1</span>]+a[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="ii.二维前缀和">II.二维前缀和</h5>
+<p>当题目出现矩阵时，说明就涉及到了二维前缀和，其模型可以抽象为<strong>矩阵</strong></p>
+<p>给定大小为 𝑚 ×𝑛<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="mn" /> 的二维数组 𝐴<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="A" />，要求出其前缀和 𝑆<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S" />．那么，𝑆<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S" /> 同样是大小为 𝑚 ×𝑛<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="mn" /> 的二维数组，且 <span class="math display">$$
+S_{i,j}=\sum_{e=1}^{i}\sum_{f=1}^{j}A_{e,f}
+$$</span> 类比一维的情形，𝑆𝑖,𝑗<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S_{i,j}" /> 应该可以基于 𝑆𝑖−1,𝑗<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S_{i-1,j}" /> 或 𝑆𝑖,𝑗−1<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S_{i,j-1}" />
+计算，从而避免重复计算前面若干项的和．但是，如果直接将 𝑆𝑖−1,𝑗<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S_{i-1,j}" /> 和 𝑆𝑖,𝑗−1<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S_{i,j-1}" /> 相加，再加上 𝐴𝑖,𝑗<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="A_{i,j}" />，会导致重复计算 𝑆𝑖−1,𝑗−1<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="S_{i-1,j-1}" />
+这一重叠部分的前缀和，所以还需要再将这部分减掉．这就是 <a
+target="_blank" rel="noopener" href="https://oi-wiki.org/math/combinatorics/inclusion-exclusion-principle/">容斥原理</a>．由此得到如下递推关系：
+<span
+class="math display"><em>S</em><sub><em>i</em>, <em>j</em></sub> = <em>S</em><sub><em>i</em> − 1, <em>j</em></sub> + <em>S</em><sub><em>i</em>, <em>j</em> − 1</sub> + <em>A</em><sub><em>i</em>, <em>j</em></sub> − <em>S</em><sub><em>i</em> − 1, <em>j</em> − 1</sub></span>
+实现时，直接遍历 (𝑖,𝑗)<img
+src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+alt="(i,j)" /> 求和即可．</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;</span><br><span class="line">   cin&gt;&gt;n;</span><br><span class="line">   <span class="type">int</span> b[n<span class="number">+1</span>][n<span class="number">+1</span>];</span><br><span class="line">   <span class="type">int</span> presum[n<span class="number">+1</span>][n<span class="number">+1</span>];</span><br><span class="line">   <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;=n;j++)</span><br><span class="line">   &#123;</span><br><span class="line">       b[<span class="number">0</span>][j]=<span class="number">0</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">   &#123;</span><br><span class="line">       b[i][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">       &#123;</span><br><span class="line">           cin&gt;&gt;b[i][j];</span><br><span class="line">           presum[i][j]=b[i][j]+presum[i<span class="number">-1</span>][j]+presum[i][j<span class="number">-1</span>]-presum[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="差分">差分</h4>
+<p>差分算法的核心思想是利用已有的数据序列，通过计算相邻元素之间的差值来生成一个新的序列。对于一个给定的序列
+a=[a1,a2,…,an]，其差分序列 d
+可以表示为：d[i]=a[i]−a[i-1]。差分数组长度一般为原定序列长度+1，即：len=n+1。其中，d[0]
+通常被定义为0，或者根据具体应用场景进行特殊处理。</p>
+<p>一维差分在修改区间时效率非常高，时间复杂度可以达到
+O(1)，我们通过对差分数组的修改以达到修改原数组的目的，那么如何修改差分数组，比如在数组a的[l,r]区间上的数统一+c，转化为差分数组为d[l]+c，d[r+1]-c，这样我们再利用前缀和还原便可以得到原数组修改后的值。在还原时，只需要将前i位差分数组相加便可以得到原数组，比如还原第三位，a[3]=d[1]+d[2]+d[3]，便可以还原其值，其还原的第n+1位一定是0。</p>
+<p>具体的还是看第二篇博客吧</p>
+<h5
+id="例题一.差分二分以及一点小优化">例题一.差分+二分以及一点小优化</h5>
+<p>[P1083 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1083">NOIP 2012
+提高组] 借教室 - 洛谷</a></p>
+<p>这题的话鼠鼠一开始只打算用差分，结果很明显超时了，所以鼠鼠用二分优化，假设在第mid天会超过，慢慢二分搜索，结果还是会t，最后就加了一点小优化，记录下前一次的差分结果，在此基础上进行计算，AC了。</p>
+<p>下面是代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//借教室</span></span><br><span class="line"><span class="comment">//只用差分是不行的</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> int long long</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">check</span><span class="params">(<span class="type">int</span> mid,vector&lt;<span class="type">int</span>&gt;&amp;dif,vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;h,<span class="type">int</span> n,<span class="type">int</span> &amp;last)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(last&lt;=mid)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> d,s,t;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=last<span class="number">+1</span>;i&lt;=mid;i++)</span><br><span class="line">        &#123;</span><br><span class="line">           d=h[i][<span class="number">0</span>];</span><br><span class="line">           s=h[i][<span class="number">1</span>];</span><br><span class="line">           t=h[i][<span class="number">2</span>];</span><br><span class="line">           dif[s]-=d;</span><br><span class="line">           dif[t<span class="number">+1</span>]+=d;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> d,s,t;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=last;i&gt;mid;i--)</span><br><span class="line">        &#123;</span><br><span class="line">           d=h[i][<span class="number">0</span>];</span><br><span class="line">           s=h[i][<span class="number">1</span>];</span><br><span class="line">           t=h[i][<span class="number">2</span>];</span><br><span class="line">           dif[s]+=d;</span><br><span class="line">           dif[t<span class="number">+1</span>]-=d;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> temp=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> flag=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        temp+=dif[i];</span><br><span class="line">        <span class="keyword">if</span>(temp&lt;<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            flag=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    last=mid;</span><br><span class="line">    <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;<span class="built_in">r</span>(n<span class="number">+1</span>);</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;<span class="built_in">dif</span>(n<span class="number">+2</span>);</span><br><span class="line">    dif[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin&gt;&gt;r[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        dif[i]=r[i]-r[i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    dif[<span class="number">1</span>]=r[<span class="number">1</span>];</span><br><span class="line">    dif[n<span class="number">+1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> flag=<span class="number">0</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;<span class="built_in">h</span>(m<span class="number">+1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> d,s,t;</span><br><span class="line">        cin&gt;&gt;d&gt;&gt;s&gt;&gt;t;</span><br><span class="line">        h[i].<span class="built_in">push_back</span>(d);</span><br><span class="line">        h[i].<span class="built_in">push_back</span>(s);</span><br><span class="line">        h[i].<span class="built_in">push_back</span>(t);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> le=<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> ri=m;</span><br><span class="line">    <span class="type">int</span> mid=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> last=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(le&lt;=ri)</span><br><span class="line">    &#123;</span><br><span class="line">        mid=(le+ri)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">check</span>(mid,dif,h,n,last))</span><br><span class="line">        &#123;</span><br><span class="line">            le=mid<span class="number">+1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">           flag=mid;</span><br><span class="line">           ri=mid<span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(flag)</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;<span class="number">-1</span>&lt;&lt;endl;</span><br><span class="line">        cout&lt;&lt;flag&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;<span class="number">0</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag"># 算法知识点</a>
+              <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C-%E5%B7%AE%E5%88%86/" rel="tag"># 前缀和&差分</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/03/05/symbol/" rel="prev" title="位运算符总结">
+      <i class="fa fa-chevron-left"></i> 位运算符总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/03/10/dfs/" rel="next" title="搜索">
+      搜索 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+ 
+   <div>
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+   </div>
+ 
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C%E5%B7%AE%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">前缀和&amp;差分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-number">1.1.</span> <span class="nav-text">前缀和</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#i.%E6%99%AE%E9%80%9A%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-number">1.1.1.</span> <span class="nav-text">I.普通前缀和</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ii.%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-number">1.1.2.</span> <span class="nav-text">II.二维前缀和</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%AE%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">差分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98%E4%B8%80.%E5%B7%AE%E5%88%86%E4%BA%8C%E5%88%86%E4%BB%A5%E5%8F%8A%E4%B8%80%E7%82%B9%E5%B0%8F%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">例题一.差分+二分以及一点小优化</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zsty"
+      src="/images/avater.png">
+  <p class="site-author-name" itemprop="name">zsty</p>
+  <div class="site-description" itemprop="description">这辈子没法做太多的事情，所以每一件都要做到精彩绝伦！——史蒂夫.乔布斯</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zsty</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">7k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">25 分钟</span>
+</div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+ <!-- 添加烟花特效 -->
+  
+    <canvas class="fireworks" style="position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none;"></canvas>
+    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+ 
+<!-- 花瓣飘落特效 -->
+<link rel="stylesheet" href="/js/sakura.min.css">
+<script src="/js/sakura.min.js"></script>
+<script>
+  // 确保 DOM 加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    var sakura = new Sakura('body', {
+      fallSpeed: 1.5,           // 下落速度（数值越大越慢）
+      maxSize: 18,               // 花瓣最大尺寸
+      minSize: 10,               // 花瓣最小尺寸
+      delay: 200,                // 生成花瓣的间隔时间（毫秒）
+      colors: [
+        {
+          gradientColorStart: 'rgba(255, 183, 197, 0.9)',  // 淡粉色
+          gradientColorEnd: 'rgba(255, 197, 208, 0.9)',
+          gradientColorDegree: 120
+        },
+        {
+          gradientColorStart: 'rgba(212, 152, 163, 0.9)',  // 粉紫色
+          gradientColorEnd: 'rgba(242, 185, 196, 0.9)',
+          gradientColorDegree: 120
+        }
+      ]
+    });
+  });
+</script>
+ 
+<script src="/hexo-helper-live2d/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"hexo-helper-live2d/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/hexo-helper-live2d/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5}});</script></body>
+</html>
